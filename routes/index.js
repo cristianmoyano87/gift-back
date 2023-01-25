@@ -74,6 +74,19 @@ router.put("/edit", (req, res) => {
   });
 });
 
+/* Empty gifts list */
+router.delete('/deleteall', function(req, res, next) {
+  fs.writeFile('./db/gifts.json', "[]",(error) => {
+    if (error) {
+      console.log('Error: ', error)
+      res.sendStatus(500);
+    } else {
+      console.log('all gifts was deleted !')
+      res.sendStatus(204);
+    }
+  })
+});
+
 /* DELETE gift item */
 router.delete("/:id", (req, res) => {
   fs.readFile('./db/gifts.json', (err, data) => {
